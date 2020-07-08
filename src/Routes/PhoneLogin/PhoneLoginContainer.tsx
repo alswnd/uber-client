@@ -2,12 +2,18 @@ import React from "react";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Mutation } from "react-apollo";
+import { PHONE_SIGN_IN } from "./PhoneQueries";
 
 // we have no props
 // interface IProps extends RouteComponentProps<any> {}
 
 interface IState {
   countryCode: string;
+  phoneNumber: string;
+}
+
+interface IMutationInterface {
   phoneNumber: string;
 }
 
@@ -24,12 +30,39 @@ class PhoneLoginContainer extends React.Component<
     const { countryCode, phoneNumber } = this.state;
 
     return (
-      <PhoneLoginPresenter
-        countryCode={countryCode}
-        phoneNumber={phoneNumber}
-        onInputChange={this.onInputChange}
-        onSumbit={this.onSumbit}
-      />
+      <Mutation<any, IMutationInterface>
+        // mutation
+        mutation={PHONE_SIGN_IN}
+        variables={{
+          phoneNumber: `${countryCode}${phoneNumber}`,
+        }}
+      >
+        {(mutation, { loading }) => {
+          // on submit
+          const onSumbit: React.FormEventHandler<HTMLFormElement> = (event) => {
+            event.preventDefault();
+            
+            const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(
+              `${countryCode}${phoneNumber}`
+            );
+
+            // if phone number valid
+            if (isValid) {
+              mutation();
+            } else {
+              toast.error("Invalid number");
+            }
+          };
+          return (
+            <PhoneLoginPresenter
+              countryCode={countryCode}
+              phoneNumber={phoneNumber}
+              onInputChange={this.onInputChange}
+              onSumbit={onSumbit}
+            />
+          );
+        }}
+      </Mutation>
     );
   }
 
@@ -51,25 +84,6 @@ class PhoneLoginContainer extends React.Component<
       // [name] can be countryCode or phoneNumber
       [name]: value,
     } as any);
-  };
-
-  // on submit
-  public onSumbit: React.FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    const { countryCode, phoneNumber } = this.state;
-
-    const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(
-      `${countryCode}${phoneNumber}`
-    );
-
-    // if phone number valid
-    if (isValid) {
-      return;
-    } else {
-      toast.error("Invalid number");
-    }
-
-    console.log(isValid);
   };
 }
 

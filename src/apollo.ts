@@ -67,7 +67,7 @@ const client = new ApolloClient({
   },
 
   // graphql endpoint
-  uri: "https://localhost:4000/graphql",
+  uri: "http://localhost:4000/graphql",
 });
 
 export default client;

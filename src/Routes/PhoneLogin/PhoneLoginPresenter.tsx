@@ -86,7 +86,7 @@ const PhoneLoginPresenter: React.SFC<IProps> = ({
         </CountryOption>
       ))}
     </CountrySelect>
-    <Form onSumbit={onSumbit}>
+    <Form onSubmit={onSumbit}>
       <Input
         type={"text"}
         value={phoneNumber}
