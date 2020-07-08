@@ -7,7 +7,7 @@ import AddPlace from "../../Routes/AddPlace";
 import EditAccount from "../../Routes/EditAccount";
 import FindAddress from "../../Routes/FindAddress";
 import Home from "../../Routes/Home";
-import OutHome from "../../Routes/OutHome";
+import OutHome from "../../Routes/Login";
 import PhoneLogin from "../../Routes/PhoneLogin";
 import Places from "../../Routes/Places";
 import Ride from "../../Routes/Ride";
