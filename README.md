@@ -15,6 +15,7 @@
     - [ ] Ride
     - [ ] Edit Account
     - [ ] Settings
-    - [ ] Saved Places
+    - [ ] Places
     - [ ] Add Place
+    - [ ] Find Address
     - [ ] Challenge: Ride History
