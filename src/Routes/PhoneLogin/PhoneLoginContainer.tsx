@@ -1,6 +1,7 @@
 import React from "react";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { RouteComponentProps } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // we have no props
 // interface IProps extends RouteComponentProps<any> {}
@@ -46,16 +47,10 @@ class PhoneLoginContainer extends React.Component<
       target: { name, value },
     } = event;
 
-    console.log(name, value);
-
-    this.setState(
-      {
-        // [name] can be countryCode or phoneNumber
-        [name]: value,
-      } as any,
-      () => console.log(this.state)
-    );
-
+    this.setState({
+      // [name] can be countryCode or phoneNumber
+      [name]: value,
+    } as any);
   };
 
   // on submit
@@ -63,7 +58,18 @@ class PhoneLoginContainer extends React.Component<
     event.preventDefault();
     const { countryCode, phoneNumber } = this.state;
 
-    console.log(countryCode, phoneNumber);
+    const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(
+      `${countryCode}${phoneNumber}`
+    );
+
+    // if phone number valid
+    if (isValid) {
+      return;
+    } else {
+      toast.error("Invalid number");
+    }
+
+    console.log(isValid);
   };
 }
 
