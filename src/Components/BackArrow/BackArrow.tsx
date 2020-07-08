@@ -6,6 +6,7 @@ const Container = styled.div`
   transform: scale(0.8);
 `;
 
+// ? means not required
 interface IProps {
   backTo: string;
   className?: string;
