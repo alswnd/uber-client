@@ -8,9 +8,11 @@ import App from "./Components/App";
  */
 import { ApolloProvider } from "react-apollo";
 import client from "./apollo";
+import GlobalStyle from "./global-styles";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
+    <GlobalStyle />
     <App />
   </ApolloProvider>,
   document.getElementById("root")
