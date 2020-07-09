@@ -4,16 +4,17 @@ import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Mutation } from "react-apollo";
 import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
+import {
+  startPhoneVerificationVariables,
+  startPhoneVerification,
+} from "../../types/api";
+import { MutationUpdaterFn } from "apollo-boost";
 
 // we have no props
 // interface IProps extends RouteComponentProps<any> {}
 
 interface IState {
   countryCode: string;
-  phoneNumber: string;
-}
-
-interface IMutationInterface {
   phoneNumber: string;
 }
 
@@ -30,18 +31,19 @@ class PhoneLoginContainer extends React.Component<
     const { countryCode, phoneNumber } = this.state;
 
     return (
-      <Mutation<any, IMutationInterface>
+      <Mutation<startPhoneVerification, startPhoneVerificationVariables>
         // mutation
         mutation={PHONE_SIGN_IN}
         variables={{
           phoneNumber: `${countryCode}${phoneNumber}`,
         }}
+        update={this.afterSubmit}
       >
         {(mutation, { loading }) => {
           // on submit
           const onSumbit: React.FormEventHandler<HTMLFormElement> = (event) => {
             event.preventDefault();
-            
+
             const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(
               `${countryCode}${phoneNumber}`
             );
@@ -59,6 +61,7 @@ class PhoneLoginContainer extends React.Component<
               phoneNumber={phoneNumber}
               onInputChange={this.onInputChange}
               onSumbit={onSumbit}
+              loading={loading}
             />
           );
         }}
@@ -84,6 +87,15 @@ class PhoneLoginContainer extends React.Component<
       // [name] can be countryCode or phoneNumber
       [name]: value,
     } as any);
+  };
+
+  /**
+   *
+   * @param cache update function gives
+   * @param result update function gives
+   */
+  public afterSubmit: MutationUpdaterFn = (cache, data) => {
+    console.log(data);
   };
 }
 
