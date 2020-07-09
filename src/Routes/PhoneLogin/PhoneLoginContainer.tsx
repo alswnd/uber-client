@@ -2,7 +2,7 @@ import React from "react";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Mutation } from "react-apollo";
+import { Mutation, MutationFunction } from "react-apollo";
 import { PHONE_SIGN_IN } from "./PhoneQueries";
 import {
   startPhoneVerificationVariables,
@@ -21,6 +21,11 @@ class PhoneLoginContainer extends React.Component<
   RouteComponentProps<any>, // props (if hava props.. IProps)
   IState // state
 > {
+  public phoneMutation!: MutationFunction<
+    startPhoneVerification,
+    startPhoneVerificationVariables
+  >;
+
   public state = {
     countryCode: "+82",
     phoneNumber: "",
@@ -66,28 +71,14 @@ class PhoneLoginContainer extends React.Component<
           }
         }}
       >
-        {(mutation, { loading }) => {
+        {(phoneMutation, { loading }) => {
           // on submit
-          const onSumbit: React.FormEventHandler<HTMLFormElement> = (event) => {
-            event.preventDefault();
-
-            const phone = `${countryCode}${phoneNumber}`;
-
-            const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(phone);
-
-            // if phone number valid
-            if (isValid) {
-              mutation();
-            } else {
-              toast.error("Invalid number");
-            }
-          };
           return (
             <PhoneLoginPresenter
               countryCode={countryCode}
               phoneNumber={phoneNumber}
               onInputChange={this.onInputChange}
-              onSumbit={onSumbit}
+              onSumbit={this.onSumbit}
               loading={loading}
             />
           );
@@ -114,6 +105,22 @@ class PhoneLoginContainer extends React.Component<
       // [name] can be countryCode or phoneNumber
       [name]: value,
     } as any);
+  };
+
+  public onSumbit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+
+    const { countryCode, phoneNumber } = this.state;
+    const phone = `${countryCode}${phoneNumber}`;
+
+    const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(phone);
+
+    // if phone number valid
+    if (isValid) {
+      this.phoneMutation();
+    } else {
+      toast.error("Invalid number");
+    }
   };
 }
 

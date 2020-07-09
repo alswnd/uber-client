@@ -4,10 +4,10 @@
 
 ### Logged Out:
 
-    - [ ] Home
-    - [ ] Phone Login
-    - [ ] Verify Phone Number
-    - [ ] Social Login
+    - [x] Home
+    - [x] Phone Login
+    - [x] Verify Phone Number
+    - [x] Social Login
 
 ### Logged In:
 
