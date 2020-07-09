@@ -25,7 +25,6 @@ class VerifyPhoneContainer extends React.Component<IProps, IState> {
   // props from who called this VerifyPhone
   constructor(props: IProps) {
     super(props);
-    console.log(props);
     if (!props.location.state) {
       props.history.push("/");
     }
