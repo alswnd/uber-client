@@ -17,6 +17,7 @@ interface IProps extends RouteComponentProps<any> {
   location: any;
   history: any;
 
+  /// older way
   // logUserIn: MutationFunction;
 }
 
