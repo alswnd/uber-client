@@ -3,12 +3,11 @@ import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Mutation } from "react-apollo";
-import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
+import { PHONE_SIGN_IN } from "./PhoneQueries";
 import {
   startPhoneVerificationVariables,
   startPhoneVerification,
 } from "../../types/api";
-import { MutationUpdaterFn } from "apollo-boost";
 
 // we have no props
 // interface IProps extends RouteComponentProps<any> {}

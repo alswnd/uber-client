@@ -26,6 +26,34 @@ export interface startPhoneVerificationVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: verifyPhone
+// ====================================================
+
+export interface verifyPhone_CompletPhoneNumberVerification {
+  __typename: "CompletPhoneNumberVerificationResponse";
+  ok: boolean;
+  error: string | null;
+  /**
+   * for existing user
+   */
+  token: string | null;
+}
+
+export interface verifyPhone {
+  CompletPhoneNumberVerification: verifyPhone_CompletPhoneNumberVerification;
+}
+
+export interface verifyPhoneVariables {
+  key: string;
+  phoneNumber: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
