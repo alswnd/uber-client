@@ -28,6 +28,8 @@ class PhoneLoginContainer extends React.Component<
   };
 
   public render() {
+    // given by react router
+    const { history } = this.props;
     const { countryCode, phoneNumber } = this.state;
 
     return (
@@ -37,20 +39,42 @@ class PhoneLoginContainer extends React.Component<
         variables={{
           phoneNumber: `${countryCode}${phoneNumber}`,
         }}
-        update={this.afterSubmit}
+        onCompleted={(data) => {
+          /**
+           * start phone verification with input number
+           */
+          const { StartPhoneVerification } = data;
+
+          if (StartPhoneVerification.ok) {
+            // starts
+            console.log(data);
+            return;
+          } else {
+            // fail
+            toast.error(StartPhoneVerification.error);
+          }
+        }}
       >
         {(mutation, { loading }) => {
           // on submit
           const onSumbit: React.FormEventHandler<HTMLFormElement> = (event) => {
             event.preventDefault();
 
-            const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(
-              `${countryCode}${phoneNumber}`
-            );
+            const phone = `${countryCode}${phoneNumber}`;
+
+            const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(phone);
 
             // if phone number valid
             if (isValid) {
-              mutation();
+              // mutation();
+              history.push({
+                // it is better user var for url
+                // not like this
+                pathname: "/verify-phone",
+                state: {
+                  phone,
+                },
+              });
             } else {
               toast.error("Invalid number");
             }
@@ -87,15 +111,6 @@ class PhoneLoginContainer extends React.Component<
       // [name] can be countryCode or phoneNumber
       [name]: value,
     } as any);
-  };
-
-  /**
-   *
-   * @param cache update function gives
-   * @param result update function gives
-   */
-  public afterSubmit: MutationUpdaterFn = (cache, data) => {
-    console.log(data);
   };
 }
 
