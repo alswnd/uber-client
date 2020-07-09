@@ -107,6 +107,8 @@ class VerifyPhoneContainer extends React.Component<IProps, IState> {
 
 // lecture #26
 export default VerifyPhoneContainer;
+
+/// older way
 // export default graphql<any, any>(LOG_USER_IN, { name: "logUserIn" })(
 //   VerifyPhoneContainer
 // );
