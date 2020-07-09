@@ -44,11 +44,23 @@ class PhoneLoginContainer extends React.Component<
            * start phone verification with input number
            */
           const { StartPhoneVerification } = data;
+          const phone = `${countryCode}${phoneNumber}`;
 
           if (StartPhoneVerification.ok) {
             // starts
-            console.log(data);
-            return;
+
+            toast.success("SMS Sent! Redirecting you...");
+
+            // redirect after 2 secs
+            setTimeout(() => {
+              // route and pass params
+              history.push({
+                pathname: "/verify-phone",
+                state: {
+                  phone,
+                },
+              });
+            }, 2000);
           } else {
             // fail
             toast.error(StartPhoneVerification.error);
@@ -66,15 +78,7 @@ class PhoneLoginContainer extends React.Component<
 
             // if phone number valid
             if (isValid) {
-              // mutation();
-              history.push({
-                // it is better user var for url
-                // not like this
-                pathname: "/verify-phone",
-                state: {
-                  phone,
-                },
-              });
+              mutation();
             } else {
               toast.error("Invalid number");
             }
