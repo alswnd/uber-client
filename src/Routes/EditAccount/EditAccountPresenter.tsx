@@ -7,6 +7,7 @@ import Header from "../../Components/Header";
 import Input from "../../Components/Input";
 import styled from "../../typed-components";
 import { updateProfile, updateProfileVariables } from "../../types/api";
+import PhotoInput from "../../Components/PhotoInput";
 
 const Container = styled.div``;
 
@@ -26,6 +27,7 @@ interface IProps {
   onSubmit: MutationFunction<updateProfile, updateProfileVariables>;
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   loading: boolean;
+  uploading: boolean;
 }
 
 const EditAccountPresenter: React.SFC<IProps> = ({
@@ -36,6 +38,7 @@ const EditAccountPresenter: React.SFC<IProps> = ({
   profilePhoto,
   onInputChange,
   loading,
+  uploading,
 }) => (
   <Container>
     <Helmet>
@@ -43,6 +46,11 @@ const EditAccountPresenter: React.SFC<IProps> = ({
     </Helmet>
     <Header title={"Edit Account"} backTo={"/"} />
     <ExtendedForm onSubmit={onSubmit}>
+      <PhotoInput
+        uploading={uploading}
+        fileUrl={profilePhoto}
+        onChange={onInputChange}
+      />
       <ExtendedInput
         onChange={onInputChange}
         type={"text"}

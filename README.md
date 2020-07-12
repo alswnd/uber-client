@@ -13,7 +13,7 @@
 
     - [ ] Home
     - [ ] Ride
-    - [ ] Edit Account
+    - [x] Edit Account
     - [ ] Settings
     - [ ] Places
     - [ ] Add Place
