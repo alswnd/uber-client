@@ -83,7 +83,6 @@ class EditAccountContainer extends React.Component<IProps, IState> {
                     query.GetMyProfile.user!.firstName = firstName;
                     query.GetMyProfile.user!.lastName = lastName;
                     query.GetMyProfile.user!.profilePhoto = profilePhoto;
-                    
                   }
 
                   cache.writeQuery({ query: USER_PROFILE, data: query });
