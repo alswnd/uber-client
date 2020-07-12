@@ -19,7 +19,7 @@ const HomePresenter: React.SFC<IProps> = ({
 }) => (
   <Container>
     <Helmet>
-      <title>Home | Number</title>
+      <title>Home | Uber</title>
     </Helmet>
     <Sidebar
       sidebar={<Menu />}

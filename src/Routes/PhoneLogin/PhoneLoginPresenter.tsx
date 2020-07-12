@@ -73,7 +73,7 @@ const PhoneLoginPresenter: React.SFC<IProps> = ({
 }) => (
   <Container>
     <Helmet>
-      <title>Phone Login | Number</title>
+      <title>Phone Login | Uber</title>
     </Helmet>
     <BackArrowExtended backTo={"/"} />
     <Title>Enter your mobile number</Title>

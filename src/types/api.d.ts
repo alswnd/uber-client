@@ -4,6 +4,25 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: toggleDriver
+// ====================================================
+
+export interface toggleDriver_ToggleDriverMode {
+  __typename: "ToggleDriverModeResponse";
+  ok: boolean;
+  error: string | null;
+}
+
+export interface toggleDriver {
+  ToggleDriverMode: toggleDriver_ToggleDriverMode;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: startPhoneVerification
 // ====================================================
 
@@ -95,7 +114,7 @@ export interface userProfile_GetMyProfile_user {
 export interface userProfile_GetMyProfile {
   __typename: "GetMyProfileResponse";
   ok: boolean;
-  error: string;
+  error: string | null;
   user: userProfile_GetMyProfile_user | null;
 }
 
